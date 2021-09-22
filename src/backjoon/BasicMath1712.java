@@ -17,7 +17,31 @@ A, B, C가 주어졌을 때, 손익분기점을 구하는 프로그램을 작성
  * 첫 번째 줄에 손익분기점 즉 최초로 이익이 발생하는 판매량을 출력한다. 손익분기점이 존재하지 않으면 -1을 출력한다.
  */
 public class BasicMath1712 {
+	
 	public static void main(String[] args) throws IOException {
 		
+		Scanner sc = new Scanner(System.in);
+		
+		long a = Long.valueOf(sc.next()); // 고정비용 
+		long b = Long.valueOf(sc.next()); // 가변비용 
+		long c = Long.valueOf(sc.next()); // 가격 
+		
+//		while(true) {
+//			cnt++;
+//			cost = a + cnt*b;
+//			if(c == 1 || b == c) {
+//				System.out.println("-1");
+//				break;
+//			}
+//			if(cnt*c > cost) {
+////				System.out.println("수입 : " + cnt*c);
+////				System.out.println("비용 : " + cost);
+//				System.out.println(cnt);
+//				break;
+//			}
+//		}
+		if(c == 1 || b == c) { System.out.println("-1"); return;}
+		long cnt = a / (c - b) + 1;
+		System.out.println(cnt > 0 ? cnt : -1);
 	}
 }
