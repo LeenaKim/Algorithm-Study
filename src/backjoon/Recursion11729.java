@@ -28,10 +28,6 @@ public class Recursion11729 {
 	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 	
 	public static void move(int n, String from, String to) throws IOException {
-//		ArrayList<String> list = new ArrayList<>();
-//		list.add(from);
-//		list.add(to);
-//		hisList.add(list);
 		bw.write(from + " " + to + "\n");
 	}
 	public static void hanoi(int n, String from, String to, String via) throws IOException {
