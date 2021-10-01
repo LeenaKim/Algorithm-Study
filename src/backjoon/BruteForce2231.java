@@ -17,36 +17,27 @@ public class BruteForce2231 {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		int n = Integer.parseInt(br.readLine());
-		String bruteNumStr = "1";
-		int bruteNumInt = Integer.parseInt(bruteNumStr);
-		int min = 1000000; 
+		String nStr = br.readLine();
+		int n = Integer.parseInt(nStr);
+		int result = 0;
 		
-		while(true) {
+		for(int i = (n - (nStr.length() * 9)); i < n; i++) {
 			int m = 0;
-			m += bruteNumInt;
-			for(int i = 0; i < bruteNumStr.length(); i++) {
-				m += Character.getNumericValue(bruteNumStr.charAt(i));
+			m += i;
+			for(int j = 0; j < Integer.toString(i).length(); j++) {
+				m += Character.getNumericValue(Integer.toString(i).charAt(j));
 			}
-			System.out.println("bruteNumStr : " + bruteNumStr);
+			System.out.println("bruteNumStr : " + Integer.toString(i));
 			System.out.println("m : " + m);
 			 
 			if(m == n) {
-				if(bruteNumInt < min) {
-					min = bruteNumInt;
-				}
-			} else if(m > n) {
+				result = i;
 				break;
 			}
-			System.out.println("min : " + min);
-			bruteNumInt++;
-			bruteNumStr = Integer.toString(bruteNumInt);
 		}
-		if(min == 1000000) {
-			System.out.println(0);
-		} else {
-			System.out.println(min);
-		}
+		
+		System.out.println(result);
+		
 		
 	}
 }
