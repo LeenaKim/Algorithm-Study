@@ -28,6 +28,5 @@ public class BruteForce1018 {
 			sqr[i] = br.readLine();
 		}
 		
-		System.out.println(sqr.toString());
 	}
 }
