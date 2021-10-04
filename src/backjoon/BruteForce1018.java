@@ -15,18 +15,49 @@ import java.io.InputStreamReader;
 /*
  * 첫째 줄에 지민이가 다시 칠해야 하는 정사각형 개수의 최솟값을 출력한다.
  */
+
 public class BruteForce1018 {
+	public static int chess(int x, int y, String[] sqr, char c) {
+		int res = 0;
+		for(int i = x; i < x + 8; i++) {
+			for(int j = y; j < y + 8; j++) {
+				if(i % 2 == 0) {
+					if(j % 2 == 0 && sqr[i].charAt(j) != c || j % 2 != 0 && sqr[i].charAt(j) == c) {
+						res++;					
+					} 
+				} else if (i % 2 != 0) {
+					if(j % 2 == 0 && sqr[i].charAt(j) == c || j % 2 != 0 && sqr[i].charAt(j) != c) {
+						res++;					
+					} 
+				}	
+			}
+		}
+		return res;
+	}
+	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
 		String nm = br.readLine();
 		int n = Integer.parseInt(nm.split(" ")[0]);
 		int m = Integer.parseInt(nm.split(" ")[1]);
-		String[] sqr = new String[m];
+		String[] sqr = new String[n];
 		
 		for(int i = 0; i < sqr.length; i++) {
 			sqr[i] = br.readLine();
 		}
+		int min = 0;
+		for(int i = 0; i < n - 8 + 1; i++ ) {
+			for(int j = 0; j < m - 8 + 1; j++ ) {
+				int resB = chess(i, j, sqr, 'B');
+				int resW = chess(i, j, sqr, 'W');
+				if(i == 0 && j == 0) min = Math.min(resB,  resW);
+				else {
+					if(Math.min(resB, resW) < min) min = Math.min(resB, resW);  					
+				}
+			}
+		}
+		System.out.println(min);
 		
 	}
 }
