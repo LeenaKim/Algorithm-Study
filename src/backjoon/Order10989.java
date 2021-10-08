@@ -2,6 +2,7 @@ package backjoon;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 /*
  * N개의 수가 주어졌을 때, 이를 오름차순으로 정렬하는 프로그램을 작성하시오.
  */
@@ -108,9 +109,11 @@ public class Order10989 {
 //	    arr[i] = tmp;
 //	  }
 	  
+	/* 힙정렬 2
 	public static void heap(int[] data, int number) { 
 		for(int i=1; i<number; i++) { 
-			int child = i; while(child > 0) { 
+			int child = i; 
+			while(child > 0) { 
 				int parent = (child-1)/2; 
 				if(data[child] > data[parent]) { 
 					int temp = data[parent]; 
@@ -145,7 +148,35 @@ public class Order10989 {
 		for(int i=0; i< number; i++) { 
 			System.out.println(data[i]); 
 		}
-
 	
+	
+	}
+	*/
+	
+	// 카운팅 정렬 
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int number = Integer.parseInt(br.readLine());
+		int[] data = new int[number];
+		int[] counting = new int[10001];
+		int[] result = new int[number];
+		
+		for(int i = 0; i < data.length; i++) {
+			data[i] = Integer.parseInt(br.readLine());
+			counting[data[i]]++;
+		}
+		br.close();
+		
+		StringBuilder sb = new StringBuilder();
+		
+		for(int i = 1; i < 10001; i++) {
+			while(counting[i] > 0) {
+				sb.append(i).append('\n');
+				counting[i]--;
+			}
+		}
+		
+		System.out.println(sb);
 	}
 }
