@@ -160,7 +160,6 @@ public class Order10989 {
 		int number = Integer.parseInt(br.readLine());
 		int[] data = new int[number];
 		int[] counting = new int[10001];
-		int[] result = new int[number];
 		
 		for(int i = 0; i < data.length; i++) {
 			data[i] = Integer.parseInt(br.readLine());
