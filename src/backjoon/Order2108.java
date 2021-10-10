@@ -31,8 +31,8 @@ public class Order2108 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
 		int[] nArr = new int[n];
-		int mean = 0, median = 0, freq = 0, range = 0;
-		float sum = 0;
+		long mean = 0, median = 0, freq = 0, range = 0;
+		double sum = 0;
 		int[] counting = new int[8001];
 		int[] orderedArr = new int[n];
 		
@@ -73,15 +73,6 @@ public class Order2108 {
 		// 산술평균 
 		mean = Math.round(sum / n);
 		// 중앙값
-//		if(n % 2 == 0) {
-//			median = (orderedArr[n / 2] + orderedArr[n / 2 + 1]) / 2;				
-//		} else {
-//			if(n != 1) {
-//				median = orderedArr[n / 2];
-//			} else {
-//				median = orderedArr[0];
-//			}
-//		}
 		median = orderedArr[orderedArr.length/2];
 		
 		// 범위 
