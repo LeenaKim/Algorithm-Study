@@ -17,7 +17,7 @@ import java.util.Comparator;
  */
 public class Order10814 {
 	
-	public class Members {
+	public static class Members {
 		int age;
 		String name;
 		int order;
@@ -32,16 +32,29 @@ public class Order10814 {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
-		String[][] members = new String[n][2];
+		Members[] members = new Members[n];
 		
 		for(int i = 0; i < n; i++) {
 			String input = br.readLine();
 			String[] vars = input.split(" ");
-//			members[i][0] = input.split(" ")[0];
-//			members[i][1] = input.split(" ")[1];
 			Members mem = new Members(Integer.parseInt(vars[0]), vars[1], i);
+			members[i] = mem;
 		}
 		
+		Arrays.sort(members, new Comparator<Members>() {
+
+			@Override
+			public int compare(Members o1, Members o2) {
+				if(o1.age == o2.age) {
+					return o1.order - o2.order;
+				} else {
+					return o1.age - o2.age;
+				}
+			}
+		});
 		
+		for(Members m : members) {
+			System.out.println(m.age + " " + m.name);
+		}
 	}
 }
