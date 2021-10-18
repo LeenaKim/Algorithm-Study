@@ -3,7 +3,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.HashMap;
 /*
  * 수직선 위에 N개의 좌표 X1, X2, ..., XN이 있다. 이 좌표에 좌표 압축을 적용하려고 한다.
 
@@ -22,6 +22,29 @@ X1, X2, ..., XN에 좌표 압축을 적용한 결과 X'1, X'2, ..., X'N를 출�
 public class Order18870 {
 	
 	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int n = Integer.parseInt(br.readLine());
+		int[] xs = new int[n];
+		String[] input = br.readLine().split(" ");
+		HashMap<Integer, Integer> rankMap = new HashMap<>();
+		for(int i = 0; i < n; i++) {
+			xs[i] = Integer.parseInt(input[i]);
+		}
 		
+		int[] xsClone = xs.clone();
+		Arrays.sort(xs);
+		
+		int idx = 0;
+		for(int i = 0; i < n; i++) {
+			if(!rankMap.containsKey(xs[i])) {
+				rankMap.put(xs[i], idx++);				
+			}
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < n; i++) {
+			sb.append(rankMap.get(xsClone[i])).append(' ');
+		}
+		System.out.print(sb.toString());
 	}
 }
