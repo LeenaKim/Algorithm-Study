@@ -30,6 +30,13 @@ N개의 수와 N-1개의 연산자가 주어졌을 때, 만들 수 있는 식의
 public class Backtracking14888 {
 
 	public static int res = 0;
+	public static int[] numsInt;
+	public static int[] operatorsInt;
+	
+	// 다음 연산자를 찾아 연산자로 바꿔주는 함수 
+	public static void nextOperator(int depth) {
+		
+	}
 	
 	public static void dfs(int N, int depth) {
 		if(N == depth) {
@@ -39,6 +46,16 @@ public class Backtracking14888 {
 		for(int i = 0; i < N; i ++) {
 			
 			// 새 연산자로 계산하는 로직 
+			
+			// 사용한 연산자 다음의 연산자중 사용하지 않은것을 사용 
+			
+			// 사용한 연산자는 operatorsInt 에서 -1을 해주면, 0이 될때까지 쓸 수 있다. 
+			
+			// 어차피 주어진 정수는 연산자 갯수보다 1개 더 많다. 반복문을 다시 돌거나 중첩해서 돌 필요가 없다. 
+			// 같은 인덱스를 공유할 수 있다.
+			
+			
+			operatorsInt[depth];
 			dfs(N, depth + 1);
 		}
 	}
@@ -49,8 +66,8 @@ public class Backtracking14888 {
 		String[] numsStr = br.readLine().split(" ");
 		String[] operators = br.readLine().split(" ");
 		
-		int[] numsInt = new int[N];
-		int[] operatorsInt = new int[N-1];
+		numsInt = new int[N];
+		operatorsInt = new int[4];
 		for(int i = 0; i < N; i++) {
 			numsInt[i] = Integer.parseInt(numsStr[i]);
 			if(i != N - 1) {
