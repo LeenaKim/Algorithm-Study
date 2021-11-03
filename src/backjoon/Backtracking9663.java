@@ -46,7 +46,7 @@ public class Backtracking9663 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
 		
-		arr = new int[n];
+		arr = new int[n]; // n개의 열로 된 배열 생성 
 		cnt = 0;
 		dfs(n, 0);
 		
