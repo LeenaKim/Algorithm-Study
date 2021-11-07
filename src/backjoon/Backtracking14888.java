@@ -29,40 +29,43 @@ N개의 수와 N-1개의 연산자가 주어졌을 때, 만들 수 있는 식의
  */
 public class Backtracking14888 {
 
-	public static int res = 0;
+	public static int MAX = Integer.MIN_VALUE; // 최댓값 
+	public static int MIN = Integer.MAX_VALUE; // 최솟값 
+	public static int N;
 	public static int[] numsInt;
 	public static int[] operatorsInt;
 	
-	// 다음 연산자를 찾아 연산자로 바꿔주는 함수 
-	public static void nextOperator(int depth) {
-		
-	}
-	
-	public static void dfs(int N, int depth) {
+	public static void dfs(int num, int depth) {
 		if(N == depth) {
+			MAX = Math.max(MAX,  num);
+			MIN = Math.min(MIN,  num);
 			return;
 		}
 		
-		for(int i = 0; i < N; i ++) {
-			
-			// 새 연산자로 계산하는 로직 
-			
-			// 사용한 연산자 다음의 연산자중 사용하지 않은것을 사용 
-			
-			// 사용한 연산자는 operatorsInt 에서 -1을 해주면, 0이 될때까지 쓸 수 있다. 
-			
-			// 어차피 주어진 정수는 연산자 갯수보다 1개 더 많다. 반복문을 다시 돌거나 중첩해서 돌 필요가 없다. 
-			// 같은 인덱스를 공유할 수 있다.
-			
-			
-			operatorsInt[depth];
-			dfs(N, depth + 1);
+		for(int i = 0; i < 4; i++) {
+			// 연산자 개수가 1개 이상인 경우
+			if(operatorsInt[i] > 0) {
+				
+				// 해당 연산자를 1 감소시킨다.
+				operatorsInt[i]--;
+				
+				switch(i) {
+				case 0 : dfs(num + numsInt[depth], depth + 1); break;
+				case 1 : dfs(num - numsInt[depth], depth + 1); break;
+				case 2 : dfs(num * numsInt[depth], depth + 1); break;
+				case 3 : dfs(num / numsInt[depth], depth + 1); break;
+				
+				}
+				
+				// 재귀호출이 종료되면 다시 해당 연산자의 개수를 복구한다.
+				operatorsInt[i]++;
+			}
 		}
 	}
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int N = Integer.parseInt(br.readLine());
+		N = Integer.parseInt(br.readLine());
 		String[] numsStr = br.readLine().split(" ");
 		String[] operators = br.readLine().split(" ");
 		
@@ -70,11 +73,14 @@ public class Backtracking14888 {
 		operatorsInt = new int[4];
 		for(int i = 0; i < N; i++) {
 			numsInt[i] = Integer.parseInt(numsStr[i]);
-			if(i != N - 1) {
-				operatorsInt[i] = Integer.parseInt(operators[i]);
-			}
+		}
+		for(int i = 0; i < 4; i++) {
+			operatorsInt[i] = Integer.parseInt(operators[i]);
 		}
 		
+		dfs(numsInt[0], 1);
+		System.out.println(MAX);
+		System.out.println(MIN);
 		
 	}
 }
