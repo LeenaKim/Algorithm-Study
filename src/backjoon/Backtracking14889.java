@@ -33,11 +33,27 @@ i\j	1	2	3	4
 public class Backtracking14889 {
 
 	public static int N;
-	public static int[] S;
+	public static int[][] S;
 	
+	public static void dfs(int depth) {
+		
+	}
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		N = Integer.parseInt(br.readLine());
-		br.readLine().split(" ");
+		S = new int[N][N];
+		String[] Sstr = new String[N];
+		for(int i = 0; i < N; i++) {
+			Sstr[i] = br.readLine();
+		}
+		for(int i = 0; i < N; i++) {
+			String[] str = Sstr[i].split(" ");
+			System.out.println(Sstr[i]);
+			for(int j = 0; j < N; j++) {
+				S[i][j] = Integer.parseInt(str[j]);
+			}
+		}
+		
 	}
 }
