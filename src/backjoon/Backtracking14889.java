@@ -2,6 +2,7 @@ package backjoon;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 /*
  * 오늘은 스타트링크에 다니는 사람들이 모여서 축구를 해보려고 한다. 축구는 평일 오후에 하고 의무 참석도 아니다. 축구를 하기 위해 모인 사람은 총 N명이고 신기하게도 N은 짝수이다. 이제 N/2명으로 이루어진 스타트 팀과 링크 팀으로 사람들을 나눠야 한다.
 
@@ -34,26 +35,67 @@ public class Backtracking14889 {
 
 	public static int N;
 	public static int[][] S;
+	public static boolean[] visited;
+	public static int MIN = Integer.MAX_VALUE;
 	
-	public static void dfs(int depth) {
+	// 자신을 제외한 다른 팀원간의 능력치 합을 구하는 함수 
+	public static void diff() {
+		// 두 팀의 능력치 합을 계산 
+		int startSum = 0, linkSum = 0;
+		for(int i = 0; i < visited.length; i++) {
+			for(int j = 0; j < visited.length; j++) {
+				if(!visited[i] && !visited[j]) {
+					startSum += S[i][j];
+				} else if(visited[i] && visited[j]) {
+					linkSum += S[i][j];
+				}
+			}
+		}
 		
+		int val = Math.abs(startSum - linkSum);
+		// 두 팀의 점수차가 0이면 가장 낮은 최솟값이기때문에 바로 종료 
+		if(val == 0) {
+			System.out.println(val);
+			System.exit(0);
+		}
+		MIN = Math.min(val, MIN);
+					
+	}
+	// from : 팀 내에서는 1과 2가 스타트팀이나, 2와 1이 스타트임이나 상관없으므로 탐색 시간을 줄이기위해 이미 채택한 팀원은 제외하고 탐색 
+	public static void dfs(int from, int depth) {
+		// 두명씩 짝이 지어졌을때 
+		// S[i][j] + S[j][i] 와 S[l][h] + S[h][l] 비교 
+		if(depth == N/2) {
+			diff();
+			return;
+		}
+		// 두 팀으로 어떻게 나눌것인가 
+		for(int i = from; i < N; i++) {
+			// 아직 멤버로 발탁되지 않았으면 
+			if(!visited[i]) {
+				// 해당 멤버를 풀에서 없앤다 
+				visited[i] = true;
+				dfs(i + 1, depth + 1);
+				
+				// 재귀가 끝나면 다시 멤버를 복귀시킨다
+				visited[i] = false;
+			}
+		}
 	}
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		N = Integer.parseInt(br.readLine());
 		S = new int[N][N];
-		String[] Sstr = new String[N];
+		visited = new boolean[N];
 		for(int i = 0; i < N; i++) {
-			Sstr[i] = br.readLine();
-		}
-		for(int i = 0; i < N; i++) {
-			String[] str = Sstr[i].split(" ");
-			System.out.println(Sstr[i]);
+			StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 			for(int j = 0; j < N; j++) {
-				S[i][j] = Integer.parseInt(str[j]);
+				S[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
 		
+		dfs(0, 0);
+		System.out.println(MIN);
 	}
 }
