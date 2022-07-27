@@ -9,22 +9,18 @@ You are given an API bool isBadVersion(version) which returns whether version is
 public class FirstBadVersion278 {
 
 	public int firstBadVersion(int n) {
-        int[] num = new int[n];
-        for(int i = 0; i < n; i++){	// 길이가 n인 1...n 의 원소를 갖는 배열 형성 
-            num[i] = i+1;
-        }
-        int low = 0;
-        int high = num.length - 1;
+		int low = 1;
+        int high = n;
         int mid = 0;
         
-        while(low <= high){
-            mid = (low + high)/2;
-            if(isBadVersion(num[mid])){ // num[mid]가 badversion이면 그 이전에 firstbadversion 이 있었다는 것 => 왼쪽 절반 탐색  
-                high = mid - 1;
-            } else if(!isBadVersion(num[mid])){ // num[mid]가 badversion이 아니면 그 후에 firstbadversion 이 있다는 것 => 오른쪽 절반 탐색 
-                low = mid + 1;
-            }
+        while(low < high){
+            mid = low + (high - low)/2;
+//            if(isBadVersion(mid)){
+//                high = mid;
+//            } else {
+//                low = mid + 1;
+//            }
         }
-        return num[low]; // low > high 가 되는순간까지 탐색하면 num[low]가 곧 first bad version 
+        return low;
     }
 }
